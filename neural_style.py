@@ -13,6 +13,7 @@ TV_WEIGHT = 1e2
 LEARNING_RATE = 1e1
 STYLE_SCALE = 1.0
 ITERATIONS = 1000
+PRINT_IMAGE_ITERATIONS = False
 VGG_PATH = 'imagenet-vgg-verydeep-19.mat'
 
 
@@ -65,6 +66,9 @@ def build_parser():
     parser.add_argument('--checkpoint-iterations', type=int,
             dest='checkpoint_iterations', help='checkpoint frequency',
             metavar='CHECKPOINT_ITERATIONS')
+    parser.add_argument('--print_image_iterations', type=bool,
+            dest='print_image_iterations', help='T/F for saving temp images every 100 iterations',
+            metavar='PRINT_IMAGE_ITERATIONS', default=PRINT_IMAGE_ITERATIONS)
     return parser
 
 
@@ -105,7 +109,8 @@ def main():
             options.iterations, options.content_weight, options.style_weight,
             style_blend_weights, options.tv_weight, options.learning_rate,
             print_iterations=options.print_iterations,
-            checkpoint_iterations=options.checkpoint_iterations)
+            checkpoint_iterations=options.checkpoint_iterations,
+            print_image_iterations=options.print_image_iterations)
     imsave(options.output, image)
 
 
