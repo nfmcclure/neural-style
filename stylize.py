@@ -109,7 +109,7 @@ def stylize(network, initial, content, styles, iterations,
                 if (i % 100 == 0) and (print_image_iterations is not None):
 					temp_image = vgg.unprocess(best.reshape(shape[1:]), mean_pixel)
 					temp_output = 'iteration_' + str(i) + '.jpg'
-					imsave(temp_output, image)
+					imsave(temp_output, temp_image)
             return vgg.unprocess(best.reshape(shape[1:]), mean_pixel)
 
 
