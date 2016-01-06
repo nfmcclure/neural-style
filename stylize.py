@@ -11,7 +11,8 @@ STYLE_LAYERS = ('relu1_1', 'relu2_1', 'relu3_1', 'relu4_1', 'relu5_1')
 
 def stylize(network, initial, content, styles, iterations,
         content_weight, style_weight, style_blend_weights, tv_weight,
-        learning_rate, print_iterations=None, checkpoint_iterations=None):
+        learning_rate, print_iterations=None, checkpoint_iterations=None,
+        print_image_iterations=None):
     shape = (1,) + content.shape
     style_shapes = [(1,) + style.shape for style in styles]
     content_features = {}
@@ -105,6 +106,10 @@ def stylize(network, initial, content, styles, iterations,
                         best_loss = this_loss
                         best = image.eval()
                 print_progress(None, i == iterations - 1)
+                if (i % 100 == 0) and (print_image_iterations is not None):
+					temp_image = vgg.unprocess(best.reshape(shape[1:]), mean_pixel)
+					temp_output = 'iteration_' + str(i) + '.jpg'
+					imsave(temp_output, image)
             return vgg.unprocess(best.reshape(shape[1:]), mean_pixel)
 
 
